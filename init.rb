@@ -1,9 +1,8 @@
 require 'redmine'
-Redmine::Plugin.register :redmine_sidebar_toc do
-  name 'Redmine Sidebar Toc plugin'
-  author '//Twinslash'
-  description 'navigation by the header of the anchor links in the wiki sidebar'
-  version '0.0.1'
-  url 'https://github.com/twinslash/redmine_sidebar_toc'
-  author_url 'twinslash.com'
+Redmine::Plugin.register :redmine_sidebar_toc_pt do
+  name 'Redmine Sidebar Table of Content and Project Tree plugin'
+  author 'Gilbert Forkel'
+  description 'navigation by the header of the anchor links in the wiki sidebar and show project tree'
+  version '1.0.0'
+  url 'https://github.com/gilbertf/redmine_sidebar_toc_pt'
 end
