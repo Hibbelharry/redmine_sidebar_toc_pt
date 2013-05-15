@@ -1,4 +1,4 @@
-## Redmine sidebar toc
+## Redmine Sidebar Table of Content and Project Tree plugin
 
 ### Description
   This plugin is based on https://github.com/twinslash/redmine_sidebar_toc.
