@@ -1,20 +1,17 @@
 ## Redmine sidebar toc
 
 ### Description
-
-  Provides navigation by the header of the anchor links in the wiki sidebar, on each wiki page.
+  This plugin is based on https://github.com/twinslash/redmine_sidebar_toc.
+  It provides additional information in the wiki sidebar:
+    * Navigation by the header of the anchor links in the wiki sidebar
+    * Project tree view that provides links to the subprojects as well as the parent structure
 
 ### Installation
 
 ```bash
-  git clone https://github.com/twinslash/redmine_sidebar_toc.git
+  git clone https://github.com/gilbertf/redmine_sidebar_toc_pt.git
   bundle install
 ```
 
-### Usage
-
-Just add some h(1-6) tags to your wiki page content. Sidebar automatically provides anchor links to it.
-
-
 ### Screenshot
-![redmine_sidebar_toc](https://raw.github.com/twinslash/redmine_sidebar_toc/master/sidebar_toc_screen.png)
+![redmine_sidebar_toc_pt](https://raw.github.com/gilbertf/redmine_sidebar_toc_pt/master/sidebar_toc_pt_screen.png)
