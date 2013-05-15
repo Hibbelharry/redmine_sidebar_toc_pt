@@ -2,9 +2,6 @@
 <%
 prjs = Array.new
 
-#Collect current
-prjs.push(@project.name)
-
 #Collect parents
 @parent = @project.parent
 while !@parent.nil?
@@ -13,11 +10,23 @@ while !@parent.nil?
 end
 prjs.reverse!
 
-#Collect subs
+#Collect current/subs
 @subprojects = @project.children.visible.all
 if @subprojects.any?
-	sb = @subprojects.collect{|p| link_to p,{:project_id => p,:controller => 'wiki'}}.join("<br> ").html_safe
+	prjs.push(@project.name)
+	s = @subprojects
+else
+	s = @project.parent.children.visible.all
 end
+
+sb = s.collect{ |p|
+if p != @project
+	link_to p,{:project_id => p,:controller => 'wiki'}
+else
+	p
+end
+}.join("<br> ").html_safe
+
 prjs.push(sb)
 %>
 
