@@ -3,8 +3,8 @@
 ### Description
   This plugin is based on https://github.com/twinslash/redmine_sidebar_toc.
   It provides additional information in the wiki sidebar:
-    *** Navigation by the header of the anchor links in the wiki sidebar
-    *** Project tree view that provides links to the subprojects as well as the parent structure
+  * Navigation by the header of the anchor links in the wiki sidebar
+  * Project tree view that provides links to the subprojects as well as the parent structure
 
 ### Installation
 Change to redmine/plugins folder and run:
