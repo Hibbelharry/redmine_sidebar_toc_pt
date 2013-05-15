@@ -1,3 +1,39 @@
+<h3>Project tree</h3>
+<%
+prjs = Array.new
+
+#Collect current
+prjs.push(@project.name)
+
+#Collect parents
+@parent = @project.parent
+while !@parent.nil?
+	prjs.push( link_to @parent,{:project_id => @parent,:controller => 'wiki'})
+	@parent = @parent.parent
+end
+prjs.reverse!
+
+#Collect subs
+@subprojects = @project.children.visible.all
+if @subprojects.any?
+	sb = @subprojects.collect{|p| link_to p,{:project_id => p,:controller => 'wiki'}}.join("<br> ").html_safe
+end
+prjs.push(sb)
+%>
+
+<%
+#Printout
+i=0
+for p in prjs
+%>
+<div style="margin-left:<%= i %>px">
+	<%i = i + 10%>
+	<%= p %>
+</div>
+<% end %>
+
+
+
 <% unless @content.nil?  %>
   <h3>Сontents</h3>
   <% nodes =  Nokogiri::HTML(textilizable(@content, :text)).xpath('//h1|//h2|//h3|//h4|//h5|//h6') %>
@@ -13,7 +49,6 @@
 <% end -%>
 
 <h3><%= l(:label_wiki) %></h3>
-
 <%= link_to l(:field_start_page), {:action => 'show', :id => nil} %><br />
 <%= link_to l(:label_index_by_title), {:action => 'index'} %><br />
 <%= link_to l(:label_index_by_date), {:controller => 'wiki', :project_id => @project, :action => 'date_index'} %><br />
