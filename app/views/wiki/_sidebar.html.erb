@@ -27,7 +27,7 @@ end
 
 sb = s.collect{ |p|
 if p != @project
-	link_to p, {:project_id => p, :controller => 'wiki', :action => 'show'}
+	link_to p, {:project_id => p, :controller => 'wiki', :action => 'show'}, :title => p
 else
 	p
 end
