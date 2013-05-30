@@ -1,3 +1,5 @@
+<div style="text-overflow: ellipsis; white-space: nowrap;">
+
 <h3>Project tree</h3>
 <%
 prjs = Array.new
@@ -61,3 +63,5 @@ for p in prjs
 <%= link_to l(:field_start_page), {:action => 'show', :id => nil} %><br />
 <%= link_to l(:label_index_by_title), {:action => 'index'} %><br />
 <%= link_to l(:label_index_by_date), {:controller => 'wiki', :project_id => @project, :action => 'date_index'} %><br />
+
+</div>
