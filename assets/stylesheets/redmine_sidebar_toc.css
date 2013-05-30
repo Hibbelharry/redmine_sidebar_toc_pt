@@ -1,0 +1,6 @@
+div.sidebar_toc, div.sidebar_toc div
+{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
