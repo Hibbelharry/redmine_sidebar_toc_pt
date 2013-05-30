@@ -37,7 +37,7 @@ prjs.push(sb)
 i=0
 for p in prjs
 %>
-<div style="margin-left:<%= i %>px">
+<div style="margin-left:<%= i %>px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 	<%i = i + 10%>
 	<%= p %>
 </div>
