@@ -1,4 +1,4 @@
-<div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+<div class="sidebar_toc">
 
 <h3>Project tree</h3>
 <%
@@ -37,7 +37,7 @@ prjs.push(sb)
 i=0
 for p in prjs
 %>
-<div style="margin-left:<%= i %>px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+<div style="margin-left:<%= i %>px;">
 	<%i = i + 10%>
 	<%= p %>
 </div>
