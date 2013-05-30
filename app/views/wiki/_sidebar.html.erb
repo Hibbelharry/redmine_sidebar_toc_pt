@@ -51,7 +51,7 @@ for p in prjs
   <% link_href = Nokogiri::HTML(textilizable(@content, :text)).xpath('//a[@name]/@name') %>
 
   <% nodes.each_with_index do |node,i|%>
-    <%= "<a href=\"##{link_href[i]}\" style=\"margin-left:#{nodes[i].name.delete("h").to_i*10}px;\">#{node.text.delete "¶"}</a>".html_safe %><br>
+    <%= "<a href=\"##{link_href[i]}\" style=\"margin-left:#{nodes[i].name.delete("h").to_i*10}px;\" title=\"#{node.text.delete "¶"}\">#{node.text.delete "¶"}</a>".html_safe %><br>
     <%end%>
 <% end %>
 
