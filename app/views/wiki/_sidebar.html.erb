@@ -1,3 +1,9 @@
+<% content_for :header_tags do%>
+  <%= stylesheet_link_tag('redmine_sidebar_toc.css', :plugin => :redmine_sidebar_toc_pt) %>
+<%end%>
+
+<div class="sidebar_toc">
+
 <h3>Project tree</h3>
 <%
 prjs = Array.new
@@ -21,11 +27,11 @@ end
 
 sb = s.collect{ |p|
 if p != @project
-	link_to p, {:project_id => p, :controller => 'wiki', :action => 'show'}
+	link_to p, {:project_id => p, :controller => 'wiki', :action => 'show'}, :title => p
 else
 	p
 end
-}.join("<br> ").html_safe
+}.join("").html_safe
 
 prjs.push(sb)
 %>
@@ -35,7 +41,7 @@ prjs.push(sb)
 i=0
 for p in prjs
 %>
-<div style="margin-left:<%= i %>px">
+<div style="margin-left:<%= i %>px;">
 	<%i = i + 10%>
 	<%= p %>
 </div>
@@ -49,7 +55,7 @@ for p in prjs
   <% link_href = Nokogiri::HTML(textilizable(@content, :text)).xpath('//a[@name]/@name') %>
 
   <% nodes.each_with_index do |node,i|%>
-    <%= "<a href=\"##{link_href[i]}\" style=\"margin-left:#{nodes[i].name.delete("h").to_i*10}px;\">#{node.text.delete "¶"}</a>".html_safe %><br>
+    <%= "<a href=\"##{link_href[i]}\" style=\"margin-left:#{nodes[i].name.delete("h").to_i*10}px;\" title=\"#{node.text.delete "¶"}\">#{node.text.delete "¶"}</a>".html_safe %>
     <%end%>
 <% end %>
 
@@ -58,6 +64,8 @@ for p in prjs
 <% end -%>
 
 <h3><%= l(:label_wiki) %></h3>
-<%= link_to l(:field_start_page), {:action => 'show', :id => nil} %><br />
-<%= link_to l(:label_index_by_title), {:action => 'index'} %><br />
-<%= link_to l(:label_index_by_date), {:controller => 'wiki', :project_id => @project, :action => 'date_index'} %><br />
+<%= link_to l(:field_start_page), {:action => 'show', :id => nil}, :title => l(:field_start_page) %>
+<%= link_to l(:label_index_by_title), {:action => 'index'}, :title => l(:label_index_by_title) %>
+<%= link_to l(:label_index_by_date), {:controller => 'wiki', :project_id => @project, :action => 'date_index'}, :title => l(:label_index_by_date) %>
+
+</div>
