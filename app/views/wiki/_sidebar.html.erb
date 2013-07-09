@@ -22,7 +22,11 @@ if @subprojects.any?
 	prjs.push(@project.name)
 	s = @subprojects
 else
-	s = @project.parent.children.visible.all
+	if @project.parent
+		s = @project.parent.children.visible.all
+	else
+		s = [@project]
+	end
 end
 
 sb = s.collect{ |p|
