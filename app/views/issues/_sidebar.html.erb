@@ -1,0 +1,69 @@
+<% content_for :header_tags do%>
+  <%= stylesheet_link_tag('redmine_sidebar_toc.css', :plugin => :redmine_sidebar_toc_pt) %>
+<%end%>
+
+<div class="sidebar_toc">
+
+<h3>Project tree</h3>
+<%
+prjs = Array.new
+
+#Collect parents
+@parent = @project.parent
+while !@parent.nil?
+	prjs.push( link_to @parent, {:project_id => @parent, :controller => 'issues', :action => 'show', :id => ''} )
+	@parent = @parent.parent
+end
+prjs.reverse!
+
+#Collect current/subs
+@subprojects = @project.children.visible.all
+if @subprojects.any?
+	prjs.push(@project.name)
+	s = @subprojects
+else
+	if @project.parent
+		s = @project.parent.children.visible.all
+	else
+		s = [@project]
+	end
+end
+
+sb = s.collect{ |p|
+if p != @project
+	link_to p, {:project_id => p, :controller => 'issues', :action => 'show', :id => ''}, :title => p
+else
+	p
+end
+}.join("").html_safe
+
+prjs.push(sb)
+
+#Printout
+i=0
+for p in prjs
+%>
+<div style="margin-left:<%= i %>px;">
+	<%i = i + 10%>
+	<%= p %>
+</div>
+<% end %>
+</div>
+
+<h3><%= l(:label_issue_plural) %></h3>
+<%= link_to l(:label_issue_view_all), _project_issues_path(@project, :set_filter => 1) %><br />
+<% if @project %>
+<%= link_to l(:field_summary), project_issues_report_path(@project) %><br />
+<% end %>
+<%= call_hook(:view_issues_sidebar_issues_bottom) %>
+
+<% if User.current.allowed_to?(:view_calendar, @project, :global => true) %>
+  <%= link_to l(:label_calendar), _project_calendar_path(@project) %><br />
+<% end %>
+<% if User.current.allowed_to?(:view_gantt, @project, :global => true) %>
+  <%= link_to l(:label_gantt), _project_gantt_path(@project) %><br />
+<% end %>
+<%= call_hook(:view_issues_sidebar_planning_bottom) %>
+
+<%= render_sidebar_queries %>
+<%= call_hook(:view_issues_sidebar_queries_bottom) %>
