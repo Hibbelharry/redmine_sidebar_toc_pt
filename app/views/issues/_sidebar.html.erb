@@ -11,7 +11,7 @@ prjs = Array.new
 #Collect parents
 @parent = @project.parent
 while !@parent.nil?
-	prjs.push( link_to @parent, {:project_id => @parent, :controller => 'issues', :action => 'show', :id => ''} )
+	prjs.push( link_to @parent, {:project_id => @parent, :action => 'show', :id => ''} )
 	@parent = @parent.parent
 end
 prjs.reverse!
@@ -31,7 +31,7 @@ end
 
 sb = s.collect{ |p|
 if p != @project
-	link_to p, {:project_id => p, :controller => 'issues', :action => 'show', :id => ''}
+	link_to p, {:project_id => p, :action => 'show', :id => ''}
 else
 	p
 end
