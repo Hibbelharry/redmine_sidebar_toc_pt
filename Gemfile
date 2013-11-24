@@ -1,1 +1,1 @@
-gem 'nokogiri', '= 1.5.10'
+gem 'nokogiri', '>= 1.5.10'
