@@ -30,7 +30,7 @@
 			end
 		end
 	rescue
-		s = Project.select{|p| p.parent == nil}
+		s = Project.select{|p| p.parent == nil && p.visible? }
 	end
 	
 	sb = s.collect{ |p|
