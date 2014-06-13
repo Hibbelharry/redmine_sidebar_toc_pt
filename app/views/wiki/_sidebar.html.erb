@@ -4,7 +4,21 @@
 
 <div class="sidebar_toc">
 
-	<h3> <%= link_to "Project tree", "/projects" %> </h3>
+<% if @wiki && @wiki.sidebar -%>
+  <%= textilizable @wiki.sidebar.content, :text %>
+<% end -%>
+
+<% unless @content.nil?  %>
+  <h3><%= l(:label_toc) %></h3>
+  <% nodes =  Nokogiri::HTML(textilizable(@content, :text)).xpath('//h1|//h2|//h3|//h4|//h5|//h6') %>
+  <% link_href = Nokogiri::HTML(textilizable(@content, :text)).xpath('//a[@name]/@name') %>
+
+  <% nodes.each_with_index do |node,i|%>
+    <%= "<a href=\"##{link_href[i]}\" style=\"margin-left:#{nodes[i].name.delete("h").to_i*10}px;\" title=\"#{node.text.delete "¶"}\">#{node.text.delete "¶"}</a>".html_safe %>
+    <%end%>
+<% end %>
+
+<h3> <%= link_to l(:label_projects), "/projects" %> </h3>
 <%
 	prjs = Array.new
 
@@ -53,22 +67,6 @@
 	<%= p %>
 </div>
 <% end %>
-
-
-
-<% unless @content.nil?  %>
-  <h3>Сontents</h3>
-  <% nodes =  Nokogiri::HTML(textilizable(@content, :text)).xpath('//h1|//h2|//h3|//h4|//h5|//h6') %>
-  <% link_href = Nokogiri::HTML(textilizable(@content, :text)).xpath('//a[@name]/@name') %>
-
-  <% nodes.each_with_index do |node,i|%>
-    <%= "<a href=\"##{link_href[i]}\" style=\"margin-left:#{nodes[i].name.delete("h").to_i*10}px;\" title=\"#{node.text.delete "¶"}\">#{node.text.delete "¶"}</a>".html_safe %>
-    <%end%>
-<% end %>
-
-<% if @wiki && @wiki.sidebar -%>
-  <%= textilizable @wiki.sidebar.content, :text %>
-<% end -%>
 
 <h3><%= l(:label_wiki) %></h3>
 <%= link_to l(:field_start_page), {:action => 'show', :id => nil}, :title => l(:field_start_page) %>
