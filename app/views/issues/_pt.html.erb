@@ -1,0 +1,57 @@
+<% content_for :header_tags do%>
+<%= stylesheet_link_tag('redmine_sidebar_toc.css', :plugin => :redmine_sidebar_toc_pt) %>
+<%end%>
+
+<div class="sidebar_toc">
+
+	<h3><%= l(:project_tree) %></h3>
+	<%
+	prjs = Array.new
+
+	begin
+	#Collect parents
+	@parent = @project.parent
+	while !@parent.nil?
+	prjs.push( link_to @parent, {:project_id => @parent, :action => 'show', :id => ''} )
+	@parent = @parent.parent
+	end
+	prjs.reverse!
+
+	#Collect current/subs
+	@subprojects = @project.children.visible.all
+	if @subprojects.any?
+	prjs.push(@project.name)
+	s = @subprojects
+	else
+	if @project.parent
+	s = @project.parent.children.visible.all
+	else
+	s = [@project]
+	end
+	end
+	rescue
+	s = Project.select{|p| p.parent == nil}
+	end
+
+	sb = s.collect{ |p|
+	if p != @project
+	link_to p, {:project_id => p, :action => 'show', :id => ''}
+	else
+	p
+	end
+	}.join("").html_safe
+
+	prjs.push(sb)
+
+	#Printout
+	i=0
+	for p in prjs
+	%>
+
+	<div style="margin-left:<%= i %>px;">
+		<% i = i + 10%>
+		<%= p %>
+	</div>
+	<% end %>
+
+</div>
